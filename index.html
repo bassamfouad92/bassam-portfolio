@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bassam Fouad — Mobile Engineer</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --ink: #0e0e0f;
+    --ink-2: #3a3a3c;
+    --ink-3: #7a7a82;
+    --bg: #f7f6f2;
+    --bg-2: #eeecea;
+    --bg-3: #e3e0db;
+    --accent: #4b3fa8;
+    --accent-light: #ece9ff;
+    --accent-mid: #7b6fd4;
+    --green: #1c6b4a;
+    --green-light: #e2f5ec;
+    --radius: 14px;
+    --radius-sm: 8px;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    background: rgba(247, 246, 242, 0.88);
+    -webkit-backdrop-filter: blur(16px);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--bg-3);
+    padding: 0 2rem;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .nav-logo {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.1rem;
+    color: var(--ink);
+    text-decoration: none;
+  }
+  .nav-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+  }
+  .nav-links a {
+    font-size: 0.85rem;
+    color: var(--ink-3);
+    text-decoration: none;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    -webkit-transition: color 0.2s;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--accent); }
+
+  /* LAYOUT */
+  .container {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  /* HERO */
+  .hero {
+    padding: 120px 0 80px;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 3rem;
+    align-items: center;
+  }
+  .hero-text h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(2.8rem, 6vw, 4.5rem);
+    line-height: 1.1;
+    color: var(--ink);
+    margin-bottom: 1rem;
+  }
+  .hero-text h1 em {
+    font-style: italic;
+    color: var(--accent);
+  }
+  .hero-desc {
+    font-size: 1.05rem;
+    color: var(--ink-2);
+    max-width: 500px;
+    margin-bottom: 1.5rem;
+    line-height: 1.75;
+  }
+  .hero-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 2rem;
+  }
+  .hero-tag {
+    background: var(--accent-light);
+    color: var(--accent);
+    font-size: 0.8rem;
+    font-weight: 500;
+    padding: 5px 14px;
+    border-radius: 100px;
+    letter-spacing: 0.01em;
+  }
+  .hero-actions {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .btn-primary {
+    background: var(--accent);
+    color: #fff;
+    padding: 11px 24px;
+    border-radius: var(--radius-sm);
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    -webkit-transition: opacity 0.2s, -webkit-transform 0.2s;
+    transition: opacity 0.2s, transform 0.2s;
+    display: inline-block;
+  }
+  .btn-primary:hover { opacity: 0.88; -webkit-transform: translateY(-1px); transform: translateY(-1px); }
+  .btn-ghost {
+    background: transparent;
+    color: var(--ink-2);
+    padding: 11px 24px;
+    border-radius: var(--radius-sm);
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    border: 1.5px solid var(--bg-3);
+    -webkit-transition: border-color 0.2s, color 0.2s;
+    transition: border-color 0.2s, color 0.2s;
+    display: inline-block;
+  }
+  .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
+
+  .hero-avatar {
+    flex-shrink: 0;
+  }
+  .hero-avatar img {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid var(--bg-3);
+    display: block;
+  }
+  .avatar-fallback {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--accent), var(--accent-mid));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'DM Serif Display', serif;
+    font-size: 3rem;
+    color: #fff;
+    border: 4px solid var(--bg-3);
+  }
+
+  /* STATS */
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 1px;
+    background: var(--bg-3);
+    border-radius: var(--radius);
+    overflow: hidden;
+    margin-bottom: 80px;
+  }
+  .stat {
+    background: var(--bg);
+    padding: 1.5rem 1rem;
+    text-align: center;
+  }
+  .stat-num {
+    font-family: 'DM Serif Display', serif;
+    font-size: 2rem;
+    color: var(--accent);
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+  .stat-label {
+    font-size: 0.75rem;
+    color: var(--ink-3);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  /* SECTION */
+  section { margin-bottom: 80px; }
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 32px;
+  }
+  .section-header h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.8rem;
+    color: var(--ink);
+  }
+  .section-line {
+    flex: 1;
+    height: 1px;
+    background: var(--bg-3);
+  }
+
+  /* EXPERIENCE */
+  .exp-list { display: flex; flex-direction: column; gap: 16px; }
+  .exp-card {
+    background: #fff;
+    border: 1px solid var(--bg-3);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    -webkit-transition: border-color 0.2s, box-shadow 0.2s;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .exp-card:hover {
+    border-color: var(--accent-mid);
+    box-shadow: 0 4px 24px rgba(75, 63, 168, 0.08);
+  }
+  .exp-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 4px;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .exp-role { font-size: 1rem; font-weight: 600; color: var(--ink); }
+  .exp-period {
+    font-size: 0.78rem;
+    color: var(--ink-3);
+    background: var(--bg-2);
+    padding: 3px 12px;
+    border-radius: 100px;
+    font-weight: 500;
+    white-space: nowrap;
+  }
+  .exp-company { font-size: 0.88rem; color: var(--accent); font-weight: 500; margin-bottom: 12px; }
+  .exp-bullets { list-style: none; }
+  .exp-bullets li {
+    font-size: 0.88rem;
+    color: var(--ink-2);
+    padding: 3px 0 3px 16px;
+    position: relative;
+    line-height: 1.6;
+  }
+  .exp-bullets li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--accent-mid);
+    font-size: 0.8rem;
+  }
+
+  /* PROJECTS GRID */
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+  .proj-card {
+    background: #fff;
+    border: 1px solid var(--bg-3);
+    border-radius: var(--radius);
+    overflow: hidden;
+    -webkit-transition: -webkit-transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+    transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+    display: flex;
+    flex-direction: column;
+  }
+  .proj-card:hover {
+    -webkit-transform: translateY(-3px);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.08);
+    border-color: var(--accent-mid);
+  }
+  .proj-thumb {
+    height: 130px;
+    background: linear-gradient(135deg, #1a0a3c 0%, #2d1b69 60%, #0f3460 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.8rem;
+  }
+  .proj-body { padding: 1rem; flex: 1; display: flex; flex-direction: column; }
+  .proj-name { font-size: 0.95rem; font-weight: 600; color: var(--accent); margin-bottom: 2px; }
+  .proj-platform { font-size: 0.75rem; color: var(--ink-3); margin-bottom: 8px; font-weight: 500; }
+  .proj-desc { font-size: 0.82rem; color: var(--ink-2); line-height: 1.6; margin-bottom: 10px; flex: 1; }
+  .proj-tech { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 10px; }
+  .tech-badge {
+    background: var(--accent-light);
+    color: var(--accent);
+    font-size: 0.72rem;
+    padding: 2px 8px;
+    border-radius: 100px;
+    font-weight: 500;
+  }
+  .proj-links { display: flex; gap: 6px; flex-wrap: wrap; }
+  .proj-link {
+    font-size: 0.75rem;
+    color: var(--accent);
+    text-decoration: none;
+    border: 1px solid var(--accent-light);
+    padding: 4px 12px;
+    border-radius: 100px;
+    font-weight: 500;
+    -webkit-transition: background 0.2s, color 0.2s;
+    transition: background 0.2s, color 0.2s;
+  }
+  .proj-link:hover { background: var(--accent); color: #fff; border-color: var(--accent); }
+
+  /* OPEN SOURCE */
+  .oss-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+  .oss-card {
+    background: #fff;
+    border: 1px solid var(--bg-3);
+    border-radius: var(--radius);
+    padding: 1.25rem;
+    -webkit-transition: border-color 0.2s, box-shadow 0.2s;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .oss-card:hover { border-color: var(--green); box-shadow: 0 4px 20px rgba(28,107,74,0.07); }
+  .oss-icon { font-size: 1.8rem; margin-bottom: 10px; }
+  .oss-name { font-size: 0.95rem; font-weight: 600; color: var(--green); margin-bottom: 4px; }
+  .oss-platform { font-size: 0.75rem; color: var(--ink-3); margin-bottom: 8px; }
+  .oss-desc { font-size: 0.82rem; color: var(--ink-2); line-height: 1.6; margin-bottom: 12px; }
+  .oss-link {
+    font-size: 0.78rem;
+    color: var(--green);
+    text-decoration: none;
+    border: 1px solid var(--green-light);
+    padding: 4px 14px;
+    border-radius: 100px;
+    font-weight: 500;
+    background: var(--green-light);
+    display: inline-block;
+  }
+
+  /* SKILLS */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+  }
+  .skill-group {
+    background: #fff;
+    border: 1px solid var(--bg-3);
+    border-radius: var(--radius);
+    padding: 1rem;
+  }
+  .skill-group-title {
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 10px;
+  }
+  .skill-pills { display: flex; flex-wrap: wrap; gap: 5px; }
+  .skill-pill {
+    background: var(--bg-2);
+    color: var(--ink-2);
+    font-size: 0.75rem;
+    padding: 3px 10px;
+    border-radius: 100px;
+    font-weight: 400;
+  }
+
+  /* CONTACT */
+  .contact-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 12px;
+  }
+  .contact-card {
+    background: #fff;
+    border: 1px solid var(--bg-3);
+    border-radius: var(--radius);
+    padding: 1rem;
+    text-align: center;
+    text-decoration: none;
+    -webkit-transition: border-color 0.2s, -webkit-transform 0.2s;
+    transition: border-color 0.2s, transform 0.2s;
+    display: block;
+  }
+  .contact-card:hover {
+    border-color: var(--accent);
+    -webkit-transform: translateY(-2px);
+    transform: translateY(-2px);
+  }
+  .contact-icon { font-size: 1.4rem; margin-bottom: 6px; }
+  .contact-label { font-size: 0.7rem; color: var(--ink-3); font-weight: 500; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 3px; }
+  .contact-val { font-size: 0.8rem; color: var(--ink); font-weight: 500; word-break: break-all; }
+
+  /* FOOTER */
+  footer {
+    border-top: 1px solid var(--bg-3);
+    padding: 2rem 0;
+    text-align: center;
+    color: var(--ink-3);
+    font-size: 0.82rem;
+    margin-top: 40px;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    .projects-grid { grid-template-columns: repeat(2, 1fr); }
+    .oss-grid { grid-template-columns: repeat(2, 1fr); }
+    .skills-grid { grid-template-columns: repeat(2, 1fr); }
+    .stats { grid-template-columns: repeat(3, 1fr); }
+    .contact-grid { grid-template-columns: repeat(3, 1fr); }
+  }
+
+  @media (max-width: 640px) {
+    .hero { grid-template-columns: 1fr; text-align: center; }
+    .hero-tags { justify-content: center; }
+    .hero-actions { justify-content: center; }
+    .hero-avatar { order: -1; display: flex; justify-content: center; }
+    .hero-avatar img, .avatar-fallback { width: 140px; height: 140px; }
+    .projects-grid { grid-template-columns: 1fr; }
+    .oss-grid { grid-template-columns: 1fr; }
+    .skills-grid { grid-template-columns: 1fr; }
+    .stats { grid-template-columns: repeat(2, 1fr); }
+    .contact-grid { grid-template-columns: repeat(2, 1fr); }
+    .nav-links { display: none; }
+    .container { padding: 0 1rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#" class="nav-logo">Bassam Fouad</a>
+  <ul class="nav-links">
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<div class="container">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-text">
+      <h1>Mobile <em>Engineer</em><br>iOS · Android · Flutter</h1>
+      <p class="hero-desc">9+ years building and shipping production mobile apps. 15+ apps on the App Store and Google Play, including products with 1M+ downloads and 25K+ daily active users.</p>
+      <div class="hero-tags">
+        <span class="hero-tag">9+ Years Experience</span>
+        <span class="hero-tag">15+ Apps Shipped</span>
+        <span class="hero-tag">Flutter · Swift · Kotlin</span>
+      </div>
+      <div class="hero-actions">
+        <a href="mailto:bassamfouad92@gmail.com" class="btn-primary">Get in Touch</a>
+        <a href="https://github.com/bassamfouad92" target="_blank" class="btn-ghost">GitHub</a>
+        <a href="https://www.linkedin.com/in/bassam-fouad-74167999/" target="_blank" class="btn-ghost">LinkedIn</a>
+      </div>
+    </div>
+    <div class="hero-avatar">
+      <img
+        src="https://media.licdn.com/dms/image/v2/D4D03AQEuuEm7JzVQEQ/profile-displayphoto-crop_800_800/B4DZ0oQXOdKQAQ-/0/1774496873095?e=1778112000&v=beta&t=oQuH6DOWxAL1wHUvMlxiCyVYr20OWNmuvAmQyWlRxU8"
+        alt="Bassam Fouad"
+        onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"
+      >
+      <div class="avatar-fallback" style="display:none;">BF</div>
+    </div>
+  </div>
+
+  <!-- STATS -->
+  <div class="stats">
+    <div class="stat"><div class="stat-num">9+</div><div class="stat-label">Years Exp</div></div>
+    <div class="stat"><div class="stat-num">15+</div><div class="stat-label">Apps Shipped</div></div>
+    <div class="stat"><div class="stat-num">1M+</div><div class="stat-label">Downloads (Swvl)</div></div>
+    <div class="stat"><div class="stat-num">25K+</div><div class="stat-label">Daily Users</div></div>
+    <div class="stat"><div class="stat-num">99.7%</div><div class="stat-label">Crash-Free</div></div>
+  </div>
+
+  <!-- EXPERIENCE -->
+  <section id="experience">
+    <div class="section-header">
+      <h2>Experience</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="exp-list">
+
+      <div class="exp-card">
+        <div class="exp-top">
+          <div class="exp-role">Software Engineer II — Mobile</div>
+          <div class="exp-period">Feb 2024 – Present</div>
+        </div>
+        <div class="exp-company">Swvl · Riyadh, Saudi Arabia</div>
+        <ul class="exp-bullets">
+          <li>Led Flutter Captain App: 150+ custom widgets, offline-first sync with Hive + Riverpod, reduced network calls ~35%</li>
+          <li>Shipped 10+ SwiftUI components for B2C rider app → 4× DAU increase (6K → 25K+)</li>
+          <li>Maintained Customer App (1M+ downloads), ensured 99.7% crash-free sessions via Sentry + Crashlytics</li>
+          <li>End-to-end App Store Connect & Google Play releases — versioning, metadata, post-release monitoring</li>
+        </ul>
+      </div>
+
+      <div class="exp-card">
+        <div class="exp-top">
+          <div class="exp-role">Staff Software Engineer — Mobile</div>
+          <div class="exp-period">Jun 2021 – Jan 2024</div>
+        </div>
+        <div class="exp-company">10Pearls · Karachi, PK</div>
+        <ul class="exp-bullets">
+          <li>Led Scrum team of 5, architected Flutter app with 50+ reusable components — 30% faster dev velocity</li>
+          <li>Fastlane + Jenkins + CircleCI CI/CD pipeline reduced build-to-release time by 40%+</li>
+          <li>Resolved memory leaks via Xcode Instruments → 55% scroll performance improvement on iPads</li>
+          <li>Integrated Apple Sign-In, Google OAuth2, PayFort, PayTabs, In-App Billing</li>
+        </ul>
+      </div>
+
+      <div class="exp-card">
+        <div class="exp-top">
+          <div class="exp-role">Full Stack Developer — Mobile & Backend</div>
+          <div class="exp-period">Apr 2018 – Mar 2021</div>
+        </div>
+        <div class="exp-company">ESociety Company WLL · Dammam, Saudi Arabia</div>
+        <ul class="exp-bullets">
+          <li>Built iOS & Android apps for cloud ERP + real estate platform; 20+ RESTful Laravel APIs with RBAC</li>
+          <li>Implemented push notifications, in-app messaging, WebRTC communication</li>
+        </ul>
+      </div>
+
+      <div class="exp-card">
+        <div class="exp-top">
+          <div class="exp-role">iOS Developer</div>
+          <div class="exp-period">Nov 2017 – Mar 2018</div>
+        </div>
+        <div class="exp-company">SkillOrbit · Karachi, PK</div>
+        <ul class="exp-bullets">
+          <li>Built VeeDoc telemedicine app with WebRTC — 1,000+ daily consultations, 4.8★ App Store rating</li>
+        </ul>
+      </div>
+
+      <div class="exp-card">
+        <div class="exp-top">
+          <div class="exp-role">Mobile Application Developer — iOS & Android</div>
+          <div class="exp-period">Oct 2016 – Oct 2017</div>
+        </div>
+        <div class="exp-company">BootstrapCRM · Karachi, PK</div>
+        <ul class="exp-bullets">
+          <li>Developed CRM apps for iOS (Swift/Objective-C) and Android (Java) in a fast-paced US startup environment</li>
+          <li>Integrated POS device SDK and built a VoIP app with Twilio SDK across both platforms</li>
+        </ul>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <div class="section-header">
+      <h2>Featured Projects</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="projects-grid">
+
+      <div class="proj-card">
+        <div class="proj-thumb">🚗</div>
+        <div class="proj-body">
+          <div class="proj-name">Swvl Driver App</div>
+          <div class="proj-platform">Flutter · iOS & Android</div>
+          <div class="proj-desc">Led Captain App with complex in-ride experience: 150+ custom widgets, background location tracking, offline-first caching.</div>
+          <div class="proj-tech"><span class="tech-badge">Dart</span><span class="tech-badge">Riverpod</span><span class="tech-badge">GoRouter</span><span class="tech-badge">Freezed</span><span class="tech-badge">Hive DB</span><span class="tech-badge">Firebase</span></div>
+        </div>
+      </div>
+
+      <div class="proj-card">
+        <div class="proj-thumb">🛍️</div>
+        <div class="proj-body">
+          <div class="proj-name">Zarya</div>
+          <div class="proj-platform">Flutter · iOS & Android · 1M+ Downloads</div>
+          <div class="proj-desc">Digital wholesale platform — resell products without investment. 30K+ daily active users.</div>
+          <div class="proj-tech"><span class="tech-badge">Dart</span><span class="tech-badge">Kotlin backend</span><span class="tech-badge">Firebase</span><span class="tech-badge">MVVM</span><span class="tech-badge">Provider</span></div>
+          <div class="proj-links">
+            <a class="proj-link" href="https://apps.apple.com/pk/app/zarya-app/id1621847482" target="_blank">App Store</a>
+            <a class="proj-link" href="https://play.google.com/store/apps/details?id=com.zarya.app" target="_blank">Play Store</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="proj-card">
+        <div class="proj-thumb">🎁</div>
+        <div class="proj-body">
+          <div class="proj-name">SaveStrike</div>
+          <div class="proj-platform">Flutter · iOS · German Market</div>
+          <div class="proj-desc">Digital wishlist app — create wishlists and earn cashback on every fulfilled wish.</div>
+          <div class="proj-tech"><span class="tech-badge">Dart</span><span class="tech-badge">MVVM</span><span class="tech-badge">Riverpod</span><span class="tech-badge">Dio</span><span class="tech-badge">Fastlane</span></div>
+          <div class="proj-links">
+            <a class="proj-link" href="https://apps.apple.com/us/app/savestrike/id6449217010" target="_blank">App Store</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="proj-card">
+        <div class="proj-thumb">🌾</div>
+        <div class="proj-body">
+          <div class="proj-name">Murshadik</div>
+          <div class="proj-platform">iOS & Android · 50K+ Downloads</div>
+          <div class="proj-desc">Agritech — connects farmers with consultants. Voice/video (WebRTC), AI/ML plant disease detection.</div>
+          <div class="proj-tech"><span class="tech-badge">Swift</span><span class="tech-badge">Java</span><span class="tech-badge">.Net Core</span><span class="tech-badge">Quickblox</span><span class="tech-badge">Firebase</span></div>
+          <div class="proj-links">
+            <a class="proj-link" href="https://apps.apple.com/us/app/murshadik-%D9%85%D8%B1%D8%B4%D8%AF%D9%83-%D8%A7%D9%84%D8%B2%D8%B1%D8%A7%D8%B9%D9%8A/id1500889672" target="_blank">App Store</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="proj-card">
+        <div class="proj-thumb">👕</div>
+        <div class="proj-body">
+          <div class="proj-name">Miss Millie's Laundry</div>
+          <div class="proj-platform">Flutter · iOS & Android · Bahamas</div>
+          <div class="proj-desc">On-demand laundry pickup/drop-off. CleanCloud integration, Firebase backend, Laravel API.</div>
+          <div class="proj-tech"><span class="tech-badge">Dart</span><span class="tech-badge">Bloc Cubit</span><span class="tech-badge">Dio</span><span class="tech-badge">Laravel</span><span class="tech-badge">CleanCloud</span></div>
+          <div class="proj-links">
+            <a class="proj-link" href="https://apps.apple.com/us/app/miss-millies-laundry/id6737984578" target="_blank">App Store</a>
+            <a class="proj-link" href="https://play.google.com/store/apps/details?id=com.missmillies.laundry" target="_blank">Play Store</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="proj-card">
+        <div class="proj-thumb">🏡</div>
+        <div class="proj-body">
+          <div class="proj-name">Ara Real Estate</div>
+          <div class="proj-platform">iOS & Android · Saudi Arabia</div>
+          <div class="proj-desc">Real estate management & rental — property listings on map, maintenance services, HyperPay.</div>
+          <div class="proj-tech"><span class="tech-badge">Swift</span><span class="tech-badge">Kotlin</span><span class="tech-badge">Laravel</span><span class="tech-badge">HyperPay</span><span class="tech-badge">Google Maps</span></div>
+          <div class="proj-links">
+            <a class="proj-link" href="https://play.google.com/store/apps/details?id=com.ara.ararealestate" target="_blank">Play Store</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="proj-card">
+        <div class="proj-thumb">🌹</div>
+        <div class="proj-body">
+          <div class="proj-name">Rose76</div>
+          <div class="proj-platform">iOS & Android · Saudi Arabia</div>
+          <div class="proj-desc">E-commerce app for perfumes, skincare and haircare. PayFort payment gateway.</div>
+          <div class="proj-tech"><span class="tech-badge">Swift</span><span class="tech-badge">Java</span><span class="tech-badge">Laravel</span><span class="tech-badge">PayFort</span><span class="tech-badge">Firebase</span></div>
+          <div class="proj-links">
+            <a class="proj-link" href="https://apps.apple.com/sa/app/rose-76-%D8%B1%D9%88%D8%B2-%D9%A7%D9%A6/id1390242136" target="_blank">App Store</a>
+            <a class="proj-link" href="https://play.google.com/store/apps/details?id=com.rose76.rose76" target="_blank">Play Store</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="proj-card">
+        <div class="proj-thumb">🏢</div>
+        <div class="proj-body">
+          <div class="proj-name">CorporateOS</div>
+          <div class="proj-platform">Android</div>
+          <div class="proj-desc">Business management with real-time monitoring, org chart heatmap, HR and task management.</div>
+          <div class="proj-tech"><span class="tech-badge">Java</span><span class="tech-badge">Laravel</span><span class="tech-badge">Firebase</span><span class="tech-badge">QuickBlox</span></div>
+          <div class="proj-links">
+            <a class="proj-link" href="https://play.google.com/store/apps/details?id=co.esociety.corporateos" target="_blank">Play Store</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="proj-card">
+        <div class="proj-thumb">💼</div>
+        <div class="proj-body">
+          <div class="proj-name">LinkUp Cards</div>
+          <div class="proj-platform">Android</div>
+          <div class="proj-desc">Digital business card platform — create and share professional digital cards.</div>
+          <div class="proj-tech"><span class="tech-badge">Java</span><span class="tech-badge">Laravel</span><span class="tech-badge">Firebase</span></div>
+          <div class="proj-links">
+            <a class="proj-link" href="https://play.google.com/store/apps/details?id=com.esociety.linkup" target="_blank">Play Store</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- OPEN SOURCE -->
+  <section>
+    <div class="section-header">
+      <h2>Open Source</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="oss-grid">
+      <div class="oss-card">
+        <div class="oss-icon">📹</div>
+        <div class="oss-name">Recordy</div>
+        <div class="oss-platform">macOS · Swift · Open Source</div>
+        <div class="oss-desc">macOS screen recorder with Combine-based stream pipelines. Deep Apple ecosystem expertise.</div>
+        <div class="proj-tech" style="margin-bottom:12px"><span class="tech-badge">SwiftUI</span><span class="tech-badge">Combine</span><span class="tech-badge">ScreenCaptureKit</span><span class="tech-badge">MVVM</span></div>
+        <a class="oss-link" href="https://github.com/bassamfouad92/screen-recorder" target="_blank">View on GitHub</a>
+      </div>
+      <div class="oss-card">
+        <div class="oss-icon">⚽</div>
+        <div class="oss-name">Football Discovery</div>
+        <div class="oss-platform">iOS · Swift · Open Source</div>
+        <div class="oss-desc">iOS football discovery app showcasing Swift, Combine and CI/CD pipeline setup.</div>
+        <div class="proj-tech" style="margin-bottom:12px"><span class="tech-badge">Swift</span><span class="tech-badge">Combine</span><span class="tech-badge">CI/CD</span></div>
+        <a class="oss-link" href="https://github.com/bassamfouad92/football-discovery" target="_blank">View on GitHub</a>
+      </div>
+      <div class="oss-card">
+        <div class="oss-icon">🥅</div>
+        <div class="oss-name">Koora Kick</div>
+        <div class="oss-platform">iOS · Swift · Open Source</div>
+        <div class="oss-desc">Football app built with Swift showcasing clean architecture and modern iOS development patterns.</div>
+        <div class="proj-tech" style="margin-bottom:12px"><span class="tech-badge">Swift</span><span class="tech-badge">iOS</span><span class="tech-badge">Clean Architecture</span></div>
+        <a class="oss-link" href="https://github.com/bassamfouad92/koora-kick-app" target="_blank">View on GitHub</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <div class="section-header">
+      <h2>Technical Skills</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="skills-grid">
+      <div class="skill-group">
+        <div class="skill-group-title">Flutter & Cross-Platform</div>
+        <div class="skill-pills"><span class="skill-pill">Flutter</span><span class="skill-pill">Dart</span><span class="skill-pill">BLoC</span><span class="skill-pill">Riverpod</span><span class="skill-pill">Provider</span><span class="skill-pill">Hive</span><span class="skill-pill">Socket.IO</span></div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-title">iOS Development</div>
+        <div class="skill-pills"><span class="skill-pill">Swift</span><span class="skill-pill">SwiftUI</span><span class="skill-pill">UIKit</span><span class="skill-pill">Combine</span><span class="skill-pill">RxSwift</span><span class="skill-pill">async/await</span><span class="skill-pill">Core Data</span></div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-title">Android Development</div>
+        <div class="skill-pills"><span class="skill-pill">Kotlin</span><span class="skill-pill">Java</span><span class="skill-pill">Android SDK</span><span class="skill-pill">Room DB</span><span class="skill-pill">Jetpack</span><span class="skill-pill">LiveData</span></div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-title">Architecture</div>
+        <div class="skill-pills"><span class="skill-pill">MVVM</span><span class="skill-pill">VIPER</span><span class="skill-pill">Clean Arch</span><span class="skill-pill">SOLID</span><span class="skill-pill">Coordinator</span></div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-title">CI/CD & DevOps</div>
+        <div class="skill-pills"><span class="skill-pill">Fastlane</span><span class="skill-pill">Jenkins</span><span class="skill-pill">CircleCI</span><span class="skill-pill">GitHub Actions</span><span class="skill-pill">Bitrise</span></div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-title">Testing & Monitoring</div>
+        <div class="skill-pills"><span class="skill-pill">XCTest</span><span class="skill-pill">XCUITest</span><span class="skill-pill">Sentry</span><span class="skill-pill">Crashlytics</span><span class="skill-pill">Datadog</span><span class="skill-pill">Amplitude</span></div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-title">Backend & APIs</div>
+        <div class="skill-pills"><span class="skill-pill">Node.js</span><span class="skill-pill">Laravel</span><span class="skill-pill">REST APIs</span><span class="skill-pill">WebRTC</span><span class="skill-pill">WebSockets</span></div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-title">AI & Productivity</div>
+        <div class="skill-pills"><span class="skill-pill">GitHub Copilot</span><span class="skill-pill">Cursor</span><span class="skill-pill">AI prototyping</span><span class="skill-pill">Figma-to-code</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="section-header">
+      <h2>Contact</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="contact-grid">
+      <a href="mailto:bassamfouad92@gmail.com" class="contact-card">
+        <div class="contact-icon">📧</div>
+        <div class="contact-label">Email</div>
+        <div class="contact-val">bassamfouad92@gmail.com</div>
+      </a>
+      <a href="tel:+923313789364" class="contact-card">
+        <div class="contact-icon">📱</div>
+        <div class="contact-label">Phone (PK)</div>
+        <div class="contact-val">+92-331-3789364</div>
+      </a>
+      <a href="tel:+966563088320" class="contact-card">
+        <div class="contact-icon">📱</div>
+        <div class="contact-label">Phone (SA)</div>
+        <div class="contact-val">+966-563-088320</div>
+      </a>
+      <a href="https://github.com/bassamfouad92" target="_blank" class="contact-card">
+        <div class="contact-icon">💻</div>
+        <div class="contact-label">GitHub</div>
+        <div class="contact-val">bassamfouad92</div>
+      </a>
+      <a href="https://www.linkedin.com/in/bassam-fouad-74167999/" target="_blank" class="contact-card">
+        <div class="contact-icon">🔗</div>
+        <div class="contact-label">LinkedIn</div>
+        <div class="contact-val">bassam-fouad</div>
+      </a>
+    </div>
+  </section>
+
+</div>
+
+<footer>
+  <p>Bassam Fouad — Mobile Engineer · bassamfouad92@gmail.com</p>
+</footer>
+
+</body>
+</html>
